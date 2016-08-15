@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:src="@color/main_blue"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        />
+
+    <RelativeLayout
+        android:id="@+id/acount_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/logo"
+        android:layout_marginTop="60dp">
+        <ImageView
+            android:id="@+id/account_logo"
+            android:src="@color/main_blue"
+            android:layout_centerVertical="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+        <EditText
+            android:id="@+id/account"
+            android:layout_toRightOf="@+id/account_logo"
+            android:layout_marginLeft="10dp"
+            android:textSize="13sp"
+            android:layout_centerVertical="true"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="请输入学号"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/pwd_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+
+        android:layout_below="@+id/acount_layout"
+        android:layout_marginTop="20dp">
+        <ImageView
+            android:id="@+id/pwd_logo"
+            android:src="@color/main_blue"
+            android:layout_centerVertical="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+        <EditText
+            android:id="@+id/pwd"
+            android:layout_toRightOf="@+id/pwd_logo"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:textSize="13sp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="请输入密码(初始身份证后六位)"/>
+    </RelativeLayout>
+    <com.dd.CircularProgressButton
+        android:id="@+id/login_Btn"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/pwd_layout"
+        android:layout_width="230dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="16dp"
+        app:cpb_cornerRadius="48dp"
+        app:cpb_selectorIdle="@drawable/idle_state_selector_exit"
+        app:cpb_selectorComplete="@drawable/complete_state_selector_exit"
+        app:cpb_selectorError="@drawable/error_state_selector_exit"
+        app:cpb_colorIndicator="@color/cpb_blue"
+        app:cpb_colorProgress="@color/cpb_white"
+        app:cpb_colorIndicatorBackground="@color/cpb_grey"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:cpb_textComplete="登录成功"
+        app:cpb_textError="登录失败"
+        app:cpb_textIdle="登录" />
+
+
+
+</RelativeLayout>
