@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:weightSum="1">
         <EditText
+            android:id="@+id/search_Et"
             android:textSize="15sp"
             android:paddingLeft="5dp"
             android:hint="请输入搜索内容"

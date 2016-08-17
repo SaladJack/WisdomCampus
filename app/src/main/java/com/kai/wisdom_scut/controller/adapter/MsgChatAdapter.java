@@ -1,4 +1,4 @@
-package com.kai.wisdom_scut.adapter;
+package com.kai.wisdom_scut.controller.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

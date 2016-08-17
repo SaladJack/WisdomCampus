@@ -10,11 +10,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.kai.wisdom_scut.R;
-import com.kai.wisdom_scut.adapter.MsgChatAdapter;
+import com.kai.wisdom_scut.controller.adapter.MsgChatAdapter;
 import com.kai.wisdom_scut.model.ServiceMsg;
 import com.kai.wisdom_scut.utils.ActivityUtils;
 import com.kai.wisdom_scut.utils.TimeUtils;
-import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +28,6 @@ import static com.kai.wisdom_scut.db.RealmDb.addMsg;
 import static com.kai.wisdom_scut.db.RealmDb.findResponse;
 import static com.kai.wisdom_scut.db.RealmDb.getMsgs;
 import static com.kai.wisdom_scut.db.RealmDb.realm;
-import static com.kai.wisdom_scut.db.RealmDb.saveMsgs;
 
 /**
  * Created by tusm on 16/8/15.

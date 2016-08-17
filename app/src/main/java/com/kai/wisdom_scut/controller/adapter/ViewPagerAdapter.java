@@ -1,4 +1,4 @@
-package com.kai.wisdom_scut.adapter;
+package com.kai.wisdom_scut.controller.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

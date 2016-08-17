@@ -11,11 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.kai.wisdom_scut.R;
-import com.kai.wisdom_scut.adapter.MsgListAdapter;
+import com.kai.wisdom_scut.controller.adapter.MsgListAdapter;
 import com.kai.wisdom_scut.db.Constants;
 import com.kai.wisdom_scut.model.ServiceMsg;
 import com.kai.wisdom_scut.utils.ActivityUtils;
 import com.kai.wisdom_scut.view.activity.MessageActivity;
+import com.kai.wisdom_scut.view.activity.SearchAvtivity;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -46,8 +47,6 @@ public class MessageFragment extends Fragment {
     private List<ServiceMsg> msgList = new ArrayList<>();
     private MsgListAdapter msgListAdapter;
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Logger.e("onCreateView");
@@ -57,14 +56,10 @@ public class MessageFragment extends Fragment {
         initView();
         return view;
     }
-    private void initData() {
-        saveMsgs(Constants.serviceMsgData); //模拟网络
-
-
-    }
 
     private void initView() {
         msg_listview.setEmptyView(search);
+        msg_listview.addHeaderView(LayoutInflater.from(getContext()).inflate(R.layout.search_head_layout,null,false));
         msgListAdapter = new MsgListAdapter(getContext(), msgList);
         msg_listview.setAdapter(msgListAdapter);
     }
@@ -73,19 +68,12 @@ public class MessageFragment extends Fragment {
     public void onStart() {
         msgList.clear();
         msgList.addAll(getMsgsByName());
+        Logger.e(msgList.toString());
         msgListAdapter.notifyDataSetChanged();
-        realm = Realm.getDefaultInstance();
         super.onStart();
     }
-
-
-
-
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        realm.close();
+    private void initData() {
+        saveMsgs(Constants.serviceMsgData); //模拟网络
     }
 
     @Override
@@ -94,17 +82,18 @@ public class MessageFragment extends Fragment {
         unbinder.unbind();
     }
 
-
-
-
     @OnItemClick(R.id.message_lv)
     void onItemClick(int position) {
-        Logger.e("click");
-        String serviceName = msgList.get(position).getServiceName();
-        Intent intent = new Intent(getActivity(), MessageActivity.class);
-        intent.putExtra("serviceName",serviceName);
-        ActivityUtils.parseToActivity(getActivity(),intent);
-
+        if (position > 0) {
+            String serviceName = msgList.get(position - 1).getServiceName();
+            Intent intent = new Intent(getActivity(), MessageActivity.class);
+            intent.putExtra("serviceName", serviceName);
+            ActivityUtils.parseToActivity(getActivity(), intent);
+        }else {
+            Intent intent = new Intent(getActivity(), SearchAvtivity.class);
+            ActivityUtils.parseToActivity(getActivity(), intent);
+            Logger.e("search");
+        }
     }
 
 }
