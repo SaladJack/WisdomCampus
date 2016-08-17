@@ -26,9 +26,7 @@ public class MachineUtils {
                 .map(new Func1<String, String>() {
                     @Override
                     public String call(String s) {
-                        RealmDb.saveMachineMsg(RealmDb.getJson(context,s));
                         return realm.where(MachineMsg.class).equalTo("ask",ask).findFirst().getResponse();
-
                     }
                 })
                 .subscribeOn(Schedulers.io())

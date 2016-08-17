@@ -19,7 +19,9 @@
         <activity
             android:launchMode="singleInstance"
             android:name=".view.activity.HomeActivity"/>
-        <activity android:name=".view.activity.MessageActivity"/>
+        <activity android:name=".view.activity.MessageActivity">
+
+        </activity>
     </application>
 
 </manifest>

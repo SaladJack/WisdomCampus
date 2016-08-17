@@ -1,5 +1,10 @@
 package com.kai.wisdom_scut.db;
 
+import com.kai.wisdom_scut.R;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import io.realm.RealmConfiguration;
 
 /**
@@ -7,6 +12,14 @@ import io.realm.RealmConfiguration;
  */
 
 public class Constants {
+    public static class Service{
+        public static String[] serviceNames= {"就业信息","校园资讯"};
+        public static HashMap<String,Integer> map = new HashMap<>();
+        static{
+            map.put("就业信息",R.mipmap.jyzp);
+            map.put("校园资讯",R.mipmap.xyzx);
+        }
+    }
 
 
     public static final String UserTestData = " {\n" +
@@ -45,21 +58,17 @@ public class Constants {
     public static final String serviceMsgData = "[\n" +
             "{\n" +
             "\"serviceName\":\"就业信息\",\n" +
-            "\"serviceTitle\":\"校园招聘\",\n" +
-            "\"serviceShortContent\":\"6月8日校园招聘信息推荐\",\n" +
             "\"serviceImageUrl\":\"http://musicdata.baidu.com/data2/pic/d25fb9f6c06a362b9f5f67810edec2ad/267472925/267472925.jpg\",\n" +
-            "\"serviceContentUrl\":\"http://www.baidu.com\",\n" +
+            "\"serviceContent\":\"这是内容\",\n" +
             "\"serviceTime\":400000\n" +
             "},\n" +
             "{\n" +
             "\"serviceName\":\"校园资讯\",\n" +
-            "\"serviceTitle\":\"建筑学院最新通知\",\n" +
-            "\"serviceShortContent\":\"一大波建筑狗因熬夜画图狗带\",\n" +
             "\"serviceImageUrl\":\"http://musicdata.baidu.com/data2/pic/eede55e93e4f0353b1eea0a7627e7be1/267709262/267709262.jpg\",\n" +
-            "\"serviceContentUrl\":\"http://www.bilibili.com\",\n" +
-            "\"serviceTime\":500000\n" +
+            "\"serviceContent\":\"一大波建筑狗因熬夜画图狗带\",\n" +
+            "\"serviceTime\":1470369600000\n" +
             "}\n" +
-            "]";
+            "] ";
 
 
 

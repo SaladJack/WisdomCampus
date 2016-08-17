@@ -1,5 +1,6 @@
 package com.kai.wisdom_scut.db;
 
+import android.app.Service;
 import android.content.Context;
 import android.content.res.AssetManager;
 
@@ -13,9 +14,13 @@ import com.orhanobut.logger.Logger;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmResults;
 import io.realm.Sort;
 
 import static com.kai.wisdom_scut.db.Constants.config;
@@ -26,6 +31,7 @@ import static com.kai.wisdom_scut.db.Constants.config;
  */
 
 public class RealmDb {
+
     public static Realm realm = null;
 
     //========================================================User=================================================================================
@@ -139,16 +145,66 @@ public class RealmDb {
     /**
      *
      * @param jsonArray
-     * @return 按消息时间降序返回List<Collection>
+     * 将jsonArray的数据解析到ServiceMsg表上
      */
-    public static List<ServiceMsg> getMsgs(String jsonArray){
+    public static void saveMsgs(String jsonArray){
         realm.beginTransaction();
         realm.createAllFromJson(ServiceMsg.class,jsonArray);
         realm.commitTransaction();
-        return realm.where(ServiceMsg.class).findAll().sort("serviceTime", Sort.DESCENDING);
     }
+
+    /**
+     *
+     * @param msg
+     * 添加msg到表中
+     */
+    public static void addMsg(ServiceMsg msg){
+        realm.beginTransaction();
+        realm.copyToRealm(msg);
+        realm.commitTransaction();
+    }
+
+    /**
+     *
+     * @return 返回各服务的第一条msg
+     */
+    public static List<ServiceMsg> getMsgsByName() {
+
+        List<ServiceMsg> msgList = new ArrayList<>();
+        RealmResults<ServiceMsg> tempList;
+        realm.beginTransaction();
+        for (String serviceName : Constants.Service.serviceNames) {
+            tempList = realm.where(ServiceMsg.class).equalTo("serviceName", serviceName).findAllSorted("serviceTime", Sort.DESCENDING);
+            if (tempList.size()>0){
+                msgList.add(tempList.first());
+            }
+
+        }
+        realm.commitTransaction();
+        Collections.sort(msgList);
+        return msgList;
+
+    }
+
+    /**
+     *
+     * @return 按消息时间升序返回List<Collection>
+     */
+    public static RealmResults<ServiceMsg> getMsgs(String serviceName) {
+            Realm realm = Realm.getDefaultInstance();
+            realm.beginTransaction();
+            RealmResults<ServiceMsg> msgs = realm.where(ServiceMsg.class).equalTo("serviceName",serviceName).findAll().sort("serviceTime", Sort.ASCENDING);
+            realm.commitTransaction();
+            realm.close();
+            return msgs;
+        }
+
+
     //========================================================MachineMsg=================================================================================
-    public static void saveMachineMsg(final String jsonArray){
+    public static void saveMachineMsg(Context context,String filename)
+    {
+        Realm realm = Realm.getDefaultInstance();
+        String jsonArray = getJson(context,filename);
         realm = Realm.getDefaultInstance();
         realm.executeTransaction(new Realm.Transaction() {
             @Override
@@ -156,6 +212,21 @@ public class RealmDb {
                 realm.createAllFromJson(MachineMsg.class,jsonArray);
             }
         });
+        realm.close();
+    }
+
+    public static String findResponse(String ask){
+        String response = "你在说什么?";
+        Realm realm = Realm.getDefaultInstance();
+        MachineMsg msg;
+        realm.beginTransaction();
+        msg = realm.where(MachineMsg.class).equalTo("ask",ask).findFirst();
+        if (msg != null){
+            response = realm.where(MachineMsg.class).equalTo("ask",ask).findFirst().getResponse();
+        }
+        realm.commitTransaction();
+        realm.close();
+        return response;
     }
     //========================================================All=================================================================================
     /**

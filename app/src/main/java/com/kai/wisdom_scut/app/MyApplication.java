@@ -2,6 +2,9 @@ package com.kai.wisdom_scut.app;
 
 import android.app.Application;
 
+import com.kai.wisdom_scut.db.RealmDb;
+import com.orhanobut.logger.Logger;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -17,7 +20,11 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         config = new RealmConfiguration.Builder(this).encryptionKey(key).build();
-
         Realm.setDefaultConfiguration(config);
+
+
+        RealmDb.deleteAllData();
+
+        Logger.e("realm已完成初始化");
     }
 }

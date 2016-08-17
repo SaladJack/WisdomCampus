@@ -5,6 +5,7 @@
 <RelativeLayout
     style="@style/toolbar_style">
     <LinearLayout
+        android:id="@+id/back"
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -20,9 +21,14 @@
             android:text="消息"
             android:textColor="@color/white"/>
     </LinearLayout>
+    <TextView
+        android:id="@+id/message_title"
+        style="@style/toolbar_title_style"
+        />
 </RelativeLayout>
     <ListView
-        android:id="@+id/msg_history_lv"
+        android:id="@+id/msgListview"
+        android:divider="@null"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="20"/>
@@ -44,11 +50,12 @@
             android:background="@drawable/layout_bg"
             android:layout_marginLeft="2dp"
             android:padding="4dp"
-            android:text="12312312"
+            android:hint="请输入"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.98" />
         <Button
+            android:id="@+id/send_Btn"
             android:background="@drawable/send_round"
             android:layout_width="50dp"
             android:layout_marginLeft="5dp"

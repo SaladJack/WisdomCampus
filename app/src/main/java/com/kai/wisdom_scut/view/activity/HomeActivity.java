@@ -7,11 +7,14 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kai.wisdom_scut.R;
+import com.kai.wisdom_scut.db.RealmDb;
+import com.kai.wisdom_scut.model.MachineMsg;
 import com.kai.wisdom_scut.view.fragment.MessageFragment;
 import com.kai.wisdom_scut.view.fragment.PersonFragment;
 import com.kai.wisdom_scut.view.fragment.ServiceFragment;
@@ -24,6 +27,11 @@ import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
+import rx.Observable;
+import rx.schedulers.Schedulers;
+
+import static com.kai.wisdom_scut.db.RealmDb.realm;
 
 /**
  * Created by tusm on 16/8/15.
@@ -69,10 +77,27 @@ public class HomeActivity extends FragmentActivity {
 
     private FragmentPagerAdapter fragAdapter;
     private List<Fragment> fragList = new ArrayList<>();
-//    private MessageFragment messageFragment;
-//    private ServiceFragment serviceFragment;
-//    private PersonFragment personFragment;
 
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        setContentView(R.layout.activity_home);
+        ButterKnife.bind(this);
+        realm = Realm.getDefaultInstance();
+        initData();
+        initView();
+    }
+
+    private void initData() {
+        fragList.add(new MessageFragment());
+        fragList.add(new ServiceFragment());
+        fragList.add(new PersonFragment());
+        loadMachineFile();
+
+    }
 
     private void initView() {
         fragAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -91,18 +116,12 @@ public class HomeActivity extends FragmentActivity {
         fragmentViewPager.setOnPageChangeListener(vpSlide);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        ButterKnife.bind(this);
-
-        fragList.add(new MessageFragment());
-        fragList.add(new ServiceFragment());
-        fragList.add(new PersonFragment());
-
-
-        initView();
+    private void loadMachineFile() {
+        if(realm.where(MachineMsg.class).findFirst() == null) {
+            Observable.just("machine.txt")
+                    .observeOn(Schedulers.io())
+                    .subscribe(filename -> RealmDb.saveMachineMsg(this, filename));
+        }
     }
 
 

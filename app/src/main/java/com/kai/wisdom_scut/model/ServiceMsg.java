@@ -1,12 +1,16 @@
 package com.kai.wisdom_scut.model;
 
+
+
+import com.kai.wisdom_scut.db.Constants;
+
 import io.realm.RealmObject;
 
 /**
  * Created by tusm on 16/8/3.
  */
 
-public class ServiceMsg extends RealmObject{
+public class ServiceMsg extends RealmObject implements Comparable<ServiceMsg>{
 
 
     /**
@@ -18,22 +22,18 @@ public class ServiceMsg extends RealmObject{
      * serviceTime : 400000
      */
 
-    private String serviceName;
-    private String serviceTitle;
-    private String serviceShortContent;
-    private String serviceImageUrl;
-    private String serviceContentUrl;
+    private String serviceName = "";
+    private String serviceContent = "";
+    private int imageResId ;
     private long serviceTime;
-    private int isSend;
+    private int isSend = 0;
 
     @Override
     public String toString() {
         return "ServiceMsg{" +
                 "serviceName='" + serviceName + '\'' +
-                ", serviceTitle='" + serviceTitle + '\'' +
-                ", serviceShortContent='" + serviceShortContent + '\'' +
-                ", serviceImageUrl='" + serviceImageUrl + '\'' +
-                ", serviceContentUrl='" + serviceContentUrl + '\'' +
+                ", serviceContent='" + serviceContent + '\'' +
+                ", imageResId=" + imageResId +
                 ", serviceTime=" + serviceTime +
                 ", isSend=" + isSend +
                 '}';
@@ -47,36 +47,20 @@ public class ServiceMsg extends RealmObject{
         this.serviceName = serviceName;
     }
 
-    public String getServiceTitle() {
-        return serviceTitle;
+    public String getServiceContent() {
+        return serviceContent;
     }
 
-    public void setServiceTitle(String serviceTitle) {
-        this.serviceTitle = serviceTitle;
+    public void setServiceContent(String serviceContent) {
+        this.serviceContent = serviceContent;
     }
 
-    public String getServiceShortContent() {
-        return serviceShortContent;
+    public int getImageResId() {
+        return Constants.Service.map.get(getServiceName());
     }
 
-    public void setServiceShortContent(String serviceShortContent) {
-        this.serviceShortContent = serviceShortContent;
-    }
-
-    public String getServiceImageUrl() {
-        return serviceImageUrl;
-    }
-
-    public void setServiceImageUrl(String serviceImageUrl) {
-        this.serviceImageUrl = serviceImageUrl;
-    }
-
-    public String getServiceContentUrl() {
-        return serviceContentUrl;
-    }
-
-    public void setServiceContentUrl(String serviceContentUrl) {
-        this.serviceContentUrl = serviceContentUrl;
+    public void setImageResId(int imageResId) {
+        this.imageResId = imageResId;
     }
 
     public long getServiceTime() {
@@ -93,5 +77,10 @@ public class ServiceMsg extends RealmObject{
 
     public void setIsSend(int isSend) {
         this.isSend = isSend;
+    }
+
+    @Override
+    public int compareTo(ServiceMsg msg) {
+        return Long.compare(msg.getServiceTime(),this.getServiceTime());
     }
 }
