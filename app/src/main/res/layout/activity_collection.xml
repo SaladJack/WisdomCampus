@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        style="@style/toolbar_style">
+        <LinearLayout
+            android:id="@+id/back"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/back"
+                android:scaleType="fitXY"
+                style="@style/back_img"/>
+            <TextView
+                android:layout_gravity="center_vertical|left"
+                android:text="我"
+                android:textColor="@color/white"
+                style="@style/normal_text_style"/>
+        </LinearLayout>
+
+        <TextView
+            android:text="收藏"
+            style="@style/toolbar_title_style"
+         />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/collection_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        tools:listitem="@layout/collection_item"/>
+</LinearLayout>

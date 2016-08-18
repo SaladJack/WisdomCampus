@@ -67,7 +67,7 @@ public class RealmDb {
 //                    users.add(user);
 //                    users.add(user1);
 //                    sUser.setCollectionArray(users);
-                    sUser.setCollection(realm.createObjectFromJson(Collection.class, Constants.sCollection));
+//                    sUser.setCollection(realm.createObjectFromJson(Collection.class, Constants.sCollection));
 
                 }
             });
@@ -99,9 +99,9 @@ public class RealmDb {
     /**
      *
      * @param jsonArray
-     * @return 按收藏时间降序返回List<Collection>
+     * @return
      */
-    public static List<Collection> getCollections(final String jsonArray){
+    public static void saveCollections(final String jsonArray){
 
         if (realm.where(Collection.class).findAll().size() == 0) {
             realm.executeTransaction(new Realm.Transaction() {
@@ -112,8 +112,21 @@ public class RealmDb {
                 }
             });
         }
-        return realm.where(Collection.class).findAll().sort("collectTime",Sort.DESCENDING);
     }
+
+    /**
+     *
+     * @return 按收藏时间降序返回List<Collection>
+     */
+    public static RealmResults<Collection> getCollections(){
+        RealmResults<Collection> collections;
+        realm.beginTransaction();
+        collections = realm.where(Collection.class).findAll().sort("collectTime",Sort.DESCENDING);
+        realm.commitTransaction();
+        return collections;
+    }
+
+
 
     /**
      * 增加收藏
@@ -143,9 +156,11 @@ public class RealmDb {
      */
     public static void saveMsgs(String jsonArray){
         realm.beginTransaction();
-        realm.createAllFromJson(ServiceMsg.class,jsonArray);
+        if (realm.where(ServiceMsg.class).findFirst() == null)
+            realm.createAllFromJson(ServiceMsg.class,jsonArray);
         realm.commitTransaction();
     }
+
 
     /**
      *
@@ -169,19 +184,36 @@ public class RealmDb {
         for (String serviceName : Constants.Service.allServiceNames) {
             tempList = realm.where(ServiceMsg.class).equalTo("serviceName", serviceName).findAllSorted("serviceTime", Sort.DESCENDING);
             if (tempList.size()>0){
+                int unReadNum = realm.where(ServiceMsg.class).equalTo("serviceName",serviceName).equalTo("unRead",false).findAll().size();
+                tempList.first().setUnReadNum(unReadNum);
                 msgList.add(tempList.first());
             }
         }
-
-
         realm.commitTransaction();
         Collections.sort(msgList);
         return msgList;
     }
 
+    public static int getUnReadNum(String serviceName){
+        Realm realm  = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        int unReadNum = realm.where(ServiceMsg.class).equalTo("serviceName",serviceName).equalTo("unRead",false).findAll().size();
+        realm.commitTransaction();
+        realm.close();
+        return unReadNum;
+    }
+    public static void clearUnRead(String serviceName){
+        realm.beginTransaction();
+        for (ServiceMsg serviceMsg : realm.where(ServiceMsg.class).equalTo("serviceName", serviceName).equalTo("unRead", false).findAll()) {
+            serviceMsg.setUnRead(true);
+        }
+        realm.commitTransaction();
+    }
+
+
     /**
      *
-     * @return 按消息时间升序返回List<Collection>
+     * @return 按消息时间升序返回RealmResults<ServiceMsg>
      */
     public static RealmResults<ServiceMsg> getMsgs(String serviceName) {
             Realm realm = Realm.getDefaultInstance();

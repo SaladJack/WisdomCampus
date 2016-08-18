@@ -1,5 +1,7 @@
 package com.kai.wisdom_scut.model;
 
+import com.kai.wisdom_scut.db.Constants;
+
 import io.realm.RealmObject;
 
 /**
@@ -7,26 +9,11 @@ import io.realm.RealmObject;
  */
 
 public class Collection extends RealmObject {
-    private int serviceId;
     private String serviceName;
     private long collectTime;
+    private int imgResId;
+    private String collectionContent;
 
-    @Override
-    public String toString() {
-        return "Collection{" +
-                "serviceId=" + serviceId +
-                ", serviceName='" + serviceName + '\'' +
-                ", collectTime=" + collectTime +
-                '}';
-    }
-
-    public int getServiceId() {
-        return serviceId;
-    }
-
-    public void setServiceId(int serviceId) {
-        this.serviceId = serviceId;
-    }
 
     public String getServiceName() {
         return serviceName;
@@ -42,5 +29,21 @@ public class Collection extends RealmObject {
 
     public void setCollectTime(int collectTime) {
         this.collectTime = collectTime;
+    }
+
+    public int getImgResId() {
+        return Constants.Service.map.get(getServiceName());
+    }
+
+    public void setImgResId(int imgResId) {
+        this.imgResId = imgResId;
+    }
+
+    public String getCollectionContent() {
+        return collectionContent;
+    }
+
+    public void setCollectionContent(String collectionContent) {
+        this.collectionContent = collectionContent;
     }
 }

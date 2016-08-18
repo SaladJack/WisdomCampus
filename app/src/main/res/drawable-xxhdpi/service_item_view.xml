@@ -5,8 +5,7 @@
         <shape>
             <solid android:color="#C0C0C0"/>
             <padding android:bottom="0.8dp"
-                     android:left="0.4dp"
-                     android:right="0.4dp"/>
+                     />
         </shape>
     </item>
     <item>

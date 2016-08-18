@@ -33,6 +33,8 @@ public class MsgChatAdapter extends ArrayAdapter<ServiceMsg> {
     private SendViewHolder sendViewHolder;
     private ReceiveViewHolder receiveViewHolder;
 
+    private final long TIME_INTERVAL = 2 * 60 * 1000; //2分钟
+
     public MsgChatAdapter(Context context,RealmResults<ServiceMsg> serviceMsgs) {
         super(context, 0);
         this.context = context;
@@ -84,7 +86,11 @@ public class MsgChatAdapter extends ArrayAdapter<ServiceMsg> {
                 }
                 receiveViewHolder.receive_img.setImageResource(msg.getImageResId());
                 receiveViewHolder.receive_content.setText(msg.getServiceContent());
-                receiveViewHolder.receive_time.setText(TimeUtils.milliseconds2String(msg.getServiceTime()));
+
+                if (position > 0 && Math.abs(serviceMsgs.get(position).getServiceTime() - serviceMsgs.get(position - 1).getServiceTime()) <= TIME_INTERVAL)
+                    receiveViewHolder.receive_time.setVisibility(View.GONE);
+                else
+                    receiveViewHolder.receive_time.setText(TimeUtils.milliseconds2String(msg.getServiceTime()));
                 break;
             //发送
             case 1:
@@ -100,8 +106,13 @@ public class MsgChatAdapter extends ArrayAdapter<ServiceMsg> {
                 }
                 sendViewHolder.send_img.setImageResource(msg.getImageResId());
                 sendViewHolder.send_content.setText(msg.getServiceContent());
-                sendViewHolder.send_time.setText(TimeUtils.milliseconds2String(msg.getServiceTime()));
+
+                if (position > 0 && Math.abs(serviceMsgs.get(position).getServiceTime() - serviceMsgs.get(position - 1).getServiceTime()) <= TIME_INTERVAL)
+                    sendViewHolder.send_time.setVisibility(View.GONE);
+                else
+                    sendViewHolder.send_time.setText(TimeUtils.milliseconds2String(msg.getServiceTime()));
                 break;
+
         }
 
         return view;

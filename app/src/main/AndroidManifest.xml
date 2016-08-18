@@ -24,6 +24,7 @@
         <activity android:name=".view.activity.MessageActivity"/>
         <activity android:name=".view.activity.SearchAvtivity"/>
         <activity android:name=".view.activity.MoreActivity"/>
+        <activity android:name=".view.activity.CollectionActivity"/>
     </application>
 
 </manifest>

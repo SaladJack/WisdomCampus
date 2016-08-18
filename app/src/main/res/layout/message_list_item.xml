@@ -42,4 +42,15 @@
         android:layout_alignParentEnd="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:text="12"
+        android:textColor="@color/white"
+        android:id="@+id/msg_unread_num"
+        android:background="@drawable/notify"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:layout_below="@id/msg_time"
+        style="@style/normal_text_style" />
 </RelativeLayout>

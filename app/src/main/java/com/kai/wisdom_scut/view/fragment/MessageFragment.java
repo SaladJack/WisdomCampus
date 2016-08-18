@@ -37,8 +37,6 @@ import static com.kai.wisdom_scut.db.RealmDb.saveMsgs;
  */
 
 public class MessageFragment extends Fragment {
-
-
     @BindView(R.id.message_lv)
     ListView msg_listview;
     @BindView(R.id.search)
@@ -56,7 +54,9 @@ public class MessageFragment extends Fragment {
         initView();
         return view;
     }
-
+    private void initData() {
+        saveMsgs(Constants.serviceMsgData); //模拟网络
+    }
     private void initView() {
         msg_listview.setEmptyView(search);
         msg_listview.addHeaderView(LayoutInflater.from(getContext()).inflate(R.layout.search_head_layout,null,false));
@@ -72,9 +72,7 @@ public class MessageFragment extends Fragment {
         msgListAdapter.notifyDataSetChanged();
         super.onStart();
     }
-    private void initData() {
-        saveMsgs(Constants.serviceMsgData); //模拟网络
-    }
+
 
     @Override
     public void onDestroyView() {

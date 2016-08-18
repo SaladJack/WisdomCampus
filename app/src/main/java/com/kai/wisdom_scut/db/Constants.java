@@ -84,27 +84,23 @@ public class Constants {
             "  \"cardNumber\":\"123456\"\n" +
             "  }\n";
 
-    public static final String CollectionTestData  = "[\n" +
+    public static final String CollectionTestData  = " [\n" +
             "    {\n" +
-            "  \"serviceId\":0,\n" +
-            "  \"serviceName\":\"服务0\",\n" +
-            "  \"collectTime\":10000000\n" +
+            "  \"serviceName\":\"专业信息\",\n" +
+            "  \"collectTime\":1470389600000,\n" +
+            "  \"collectionContent\":\"并没有什么卵专业信息\"\n" +
             "    },\n" +
             "      {\n" +
-            "  \"serviceId\":1,\n" +
-            "  \"serviceName\":\"服务1\",\n" +
-            "  \"collectTime\":20000000\n" +
+            "  \"serviceName\":\"教学计划\",\n" +
+            "  \"collectTime\":1470409600000,\n" +
+            "  \"collectionContent\":\"并没有什么卵教学计划\"\n" +
             "},  {\n" +
-            "  \"serviceId\":2,\n" +
-            "  \"serviceName\":\"服务2\",\n" +
-            "  \"collectTime\":30000000\n" +
+            "  \"serviceName\":\"学术课程表\",\n" +
+            "  \"collectTime\":1470382600000,\n" +
+            "  \"collectionContent\":\"并没有什么卵学术课程表\"\n" +
             "}]";
 
-    public static final String sCollection = "{\n" +
-            "  \"serviceId\":1,\n" +
-            "  \"serviceName\":\"服务1\",\n" +
-            "  \"collectTime\":20000000\n" +
-            "}";
+
 
 
     public static final String serviceMsgData = "[\n" +

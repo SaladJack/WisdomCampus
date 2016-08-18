@@ -28,7 +28,7 @@
             android:id="@+id/person_info_container"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@drawable/top_bottom_border"
+            android:background="@drawable/left_border"
             android:clickable="true">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -102,7 +102,7 @@
             android:id="@+id/net_ll"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/top_bottom_border"
+            android:background="@drawable/left_border"
             android:clickable="true">
 
             <ImageView
@@ -158,17 +158,15 @@
             android:id="@+id/settings_ll"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/top_bottom_border"
+            android:background="@drawable/left_border"
             android:clickable="true">
 
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="15dp"
-
                 android:src="@color/main_blue" />
 
             <TextView
@@ -185,11 +183,11 @@
             android:layout_height="15dp"
             android:background="@color/grey" />
         <LinearLayout
-            android:id="@+id/btn_logout"
+            android:id="@+id/logout_ll"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:clickable="true"
-            android:background="@drawable/top_bottom_border"
+            android:background="@drawable/left_border"
             android:gravity="center">
 
             <TextView

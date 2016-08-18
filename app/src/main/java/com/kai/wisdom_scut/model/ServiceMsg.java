@@ -27,6 +27,8 @@ public class ServiceMsg extends RealmObject implements Comparable<ServiceMsg>{
     private int imageResId ;
     private long serviceTime;
     private int isSend = 0;
+    private boolean unRead = true; //未读为true 已读为false
+    public int unReadNum = 0;
 
     @Override
     public String toString() {
@@ -77,6 +79,22 @@ public class ServiceMsg extends RealmObject implements Comparable<ServiceMsg>{
 
     public void setIsSend(int isSend) {
         this.isSend = isSend;
+    }
+
+    public boolean isUnRead() {
+        return unRead;
+    }
+
+    public void setUnRead(boolean unRead) {
+        this.unRead = unRead;
+    }
+
+    public int getUnReadNum() {
+        return unReadNum;
+    }
+
+    public void setUnReadNum(int unReadNum) {
+        this.unReadNum = unReadNum;
     }
 
     @Override

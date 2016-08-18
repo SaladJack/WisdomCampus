@@ -12,12 +12,10 @@
         <ImageView
             android:src="@drawable/back"
             android:scaleType="fitXY"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
+            style="@style/back_img"/>
         <TextView
             android:layout_gravity="center_vertical|left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/normal_text_style"
             android:text="消息"
             android:textColor="@color/white"/>
     </LinearLayout>
@@ -26,36 +24,56 @@
         style="@style/toolbar_title_style"
         />
 </RelativeLayout>
+
     <ListView
         android:id="@+id/msgListview"
         android:divider="@null"
+        android:stackFromBottom="false"
+        android:transcriptMode="alwaysScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="20"/>
+        android:layout_weight="40"/>
+
     <LinearLayout
+        android:id="@+id/chat_ll"
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
         android:paddingRight="5dp"
         android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="45dp"
+        android:background="@drawable/layout_bg"
         android:layout_weight="1"
+        android:visibility="gone"
         >
+
         <Button
+            android:layout_gravity="bottom"
             android:layout_width="50dp"
             android:layout_height="35dp"
-            android:background="@drawable/hide_keyboard"/>
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/hide_keyboard"
+            android:id="@+id/hide_keyboard" />
+
         <EditText
-            android:id="@+id/sendMsg"
-            android:background="@drawable/layout_bg"
+            android:id="@+id/send_msg"
+            android:background="@drawable/keyboard_bg"
+            android:layout_toRightOf="@id/hide_keyboard"
             android:layout_marginLeft="2dp"
             android:padding="4dp"
-            android:hint="请输入"
+            android:maxLines="5"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.98" />
+            android:layout_weight="0.98"
+             />
+
         <Button
             android:id="@+id/send_Btn"
+            android:layout_toRightOf="@id/send_msg"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="5dp"
             android:background="@drawable/send_round"
             android:layout_width="50dp"
             android:layout_marginLeft="5dp"
@@ -64,4 +82,56 @@
             android:textColor="@color/white"
             android:text="发送"/>
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/menu_ll"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/keyboard_bg"
+        android:layout_weight="1">
+        <Button
+            android:layout_gravity="center_vertical"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:background="@drawable/show_keyboard"
+            android:id="@+id/show_keyboard" />
+        <LinearLayout
+            android:visibility="visible"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/menu1"
+            android:text="菜单一"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/left_border"
+            />
+            <TextView
+                android:id="@+id/menu2"
+                android:text="菜单二"
+                android:gravity="center"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/left_border"
+                />
+            <TextView
+                android:id="@+id/menu3"
+                android:text="菜单三"
+                android:gravity="center"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/left_border"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>
