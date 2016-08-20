@@ -28,7 +28,7 @@
             android:id="@+id/person_info_container"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@drawable/left_border"
+            android:background="@drawable/top_bottom_border"
             android:clickable="true">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,7 +87,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp"
-                android:src="@color/main_blue" />
+                android:src="@mipmap/skxr" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -102,7 +102,7 @@
             android:id="@+id/net_ll"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/left_border"
+            android:background="@drawable/top_bottom_border"
             android:clickable="true">
 
             <ImageView
@@ -112,7 +112,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp"
-                android:src="@color/main_blue" />
+                android:src="@mipmap/yjsw" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -137,8 +137,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp"
-                android:src="@color/main_blue"
-                android:background="@drawable/image_corner"/>
+                android:src="@mipmap/cjcx"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -158,7 +157,7 @@
             android:id="@+id/settings_ll"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/left_border"
+            android:background="@drawable/top_bottom_border"
             android:clickable="true">
 
             <ImageView
@@ -167,7 +166,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="15dp"
-                android:src="@color/main_blue" />
+                android:src="@mipmap/zyxx" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -187,7 +186,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:clickable="true"
-            android:background="@drawable/left_border"
+            android:background="@drawable/top_bottom_border"
             android:gravity="center">
 
             <TextView

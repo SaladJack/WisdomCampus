@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -12,16 +13,22 @@ import android.widget.TextView;
 
 import com.kai.wisdom_scut.R;
 import com.kai.wisdom_scut.controller.adapter.MsgChatAdapter;
+import com.kai.wisdom_scut.db.Constants;
 import com.kai.wisdom_scut.db.RealmDb;
 import com.kai.wisdom_scut.model.ServiceMsg;
+import com.kai.wisdom_scut.network.api.SimsimiApi;
 import com.kai.wisdom_scut.utils.ActivityUtils;
 import com.kai.wisdom_scut.utils.TimeUtils;
+
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -63,8 +70,9 @@ public class MessageActivity extends Activity {
 
     private RealmResults<ServiceMsg> serviceMsgList;
     private MsgChatAdapter msgChatAdapter;
-    private String serviceName;
-    private String sendContent;
+    private String serviceName,sendContent;
+    private SimsimiApi simsimiApi;
+    private Retrofit retrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +80,14 @@ public class MessageActivity extends Activity {
         setContentView(R.layout.activity_message);
         realm = Realm.getDefaultInstance();
         ButterKnife.bind(this);
+
+        
+
         initData();
         initView();
     }
+
+
 
     private void initData() {
         serviceName = getIntent().getStringExtra("serviceName");
@@ -83,7 +96,6 @@ public class MessageActivity extends Activity {
 
     private void initView() {
         messageTitle.setText(serviceName);
-
         //============================================listview设置=============================================
         serviceMsgList = getMsgs(serviceName);
         msgChatAdapter = new MsgChatAdapter(this, serviceMsgList);
@@ -91,23 +103,10 @@ public class MessageActivity extends Activity {
         //监听数据变化
         serviceMsgList.addChangeListener(element -> msgChatAdapter.notifyDataSetChanged());
         //====================================================================================================
-        /*
-        todo:网络请求
-         */
-
-
     }
 
 
-    @OnClick(R.id.send_Btn)
-    public void onClick() {
-        sendContent = sendMsg.getText().toString();
-        if (!TextUtils.isEmpty(sendContent)) {
-            sendMsg.setText("");
-            addMsg2List(1, sendContent);
-            setResponse(sendContent);
-        }
-    }
+
 
     private void addMsg2List(int isSend, String sendContent) {
         ServiceMsg msg = new ServiceMsg();
@@ -118,12 +117,32 @@ public class MessageActivity extends Activity {
         addMsg(msg);
     }
 
-    private void setResponse(String sendContent) {
+    private void setMachineResponse(String sendContent) {
         Observable.just(sendContent)
                 .map(ask -> findResponse(ask))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> addMsg2List(0, response));
+    }
+
+    private void setNetResponse(){
+        if(retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .baseUrl(Constants.Api.simiSimiBaseUrl)
+                    .build();
+            simsimiApi = retrofit.create(SimsimiApi.class);
+        }
+        simsimiApi.getResponse(sendContent)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(responseBody-> {
+                    try {
+                        addMsg2List(0, responseBody.string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                },error -> setMachineResponse(sendContent));
     }
 
     @Override
@@ -132,34 +151,45 @@ public class MessageActivity extends Activity {
         super.onStop();
     }
 
+
+
     @Override
     protected void onDestroy() {
         realm.close();
         super.onDestroy();
     }
 
-
-    @OnClick(R.id.back)
-    public void back() {
-        ActivityUtils.finishActivity(this);
-    }
-
-    @OnClick({R.id.hide_keyboard, R.id.show_keyboard, R.id.menu1, R.id.menu2, R.id.menu3})
+    @OnClick({R.id.hide_keyboard, R.id.show_keyboard, R.id.menu1, R.id.menu2, R.id.menu3,R.id.send_Btn,R.id.back})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.hide_keyboard:
+                chatLl.setAnimation(AnimationUtils.loadAnimation(this, R.anim.push_up_out));
                 chatLl.setVisibility(View.GONE);
+                menuLl.setAnimation(AnimationUtils.loadAnimation(this, R.anim.push_up_in));
                 menuLl.setVisibility(View.VISIBLE);
                 break;
             case R.id.show_keyboard:
-                chatLl.setVisibility(View.VISIBLE);
+                menuLl.setAnimation(AnimationUtils.loadAnimation(this, R.anim.push_up_out));
                 menuLl.setVisibility(View.GONE);
+                chatLl.setAnimation(AnimationUtils.loadAnimation(this, R.anim.push_up_in));
+                chatLl.setVisibility(View.VISIBLE);
                 break;
             case R.id.menu1:
                 break;
             case R.id.menu2:
                 break;
             case R.id.menu3:
+                break;
+            case R.id.send_Btn:
+                sendContent = sendMsg.getText().toString();
+                if (!TextUtils.isEmpty(sendContent)) {
+                    sendMsg.setText("");
+                    addMsg2List(1, sendContent);
+                    setNetResponse();
+                }
+                break;
+            case R.id.back:
+                ActivityUtils.finishActivity(this);
                 break;
         }
     }

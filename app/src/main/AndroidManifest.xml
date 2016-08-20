@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kai.wisdom_scut">
 
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +17,25 @@
         android:supportsRtl="true"
         android:name=".app.MyApplication"
         android:theme="@style/AppTheme">
+
+        <!-- 请填写应用实际的APP_ID -->
+        <meta-data android:name="com.baidu.speech.APP_ID" android:value="8523445"/>
+        <!-- 请填写应用实际的API_KEY -->
+        <meta-data android:name="com.baidu.speech.API_KEY" android:value="sMPYv2IPc5IosmOg04bXaAMk"/>
+        <!-- 请填写应用实际的SECRET_KEY -->
+        <meta-data android:name="com.baidu.speech.SECRET_KEY" android:value="bae2a04a392054d5f63c87ad2201d41a"/>
+        <service android:name="com.baidu.speech.VoiceRecognitionService" android:exported="false" />
+        <activity
+            android:name="com.baidu.voicerecognition.android.ui.BaiduASRDigitalDialog"
+            android:configChanges="orientation|keyboardHidden|screenLayout"
+            android:theme="@android:style/Theme.Dialog"
+            android:exported="false"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.baidu.action.RECOGNIZE_SPEECH" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <activity android:name=".view.activity.LoginActivity">
             <intent-filter>
@@ -25,6 +52,7 @@
         <activity android:name=".view.activity.SearchAvtivity"/>
         <activity android:name=".view.activity.MoreActivity"/>
         <activity android:name=".view.activity.CollectionActivity"/>
+        <activity android:name=".view.activity.BaiduYuyinActivity"/>
     </application>
 
 </manifest>

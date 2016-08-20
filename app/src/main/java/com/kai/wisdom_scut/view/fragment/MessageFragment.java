@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -15,6 +16,7 @@ import com.kai.wisdom_scut.controller.adapter.MsgListAdapter;
 import com.kai.wisdom_scut.db.Constants;
 import com.kai.wisdom_scut.model.ServiceMsg;
 import com.kai.wisdom_scut.utils.ActivityUtils;
+import com.kai.wisdom_scut.view.activity.BaiduYuyinActivity;
 import com.kai.wisdom_scut.view.activity.MessageActivity;
 import com.kai.wisdom_scut.view.activity.SearchAvtivity;
 import com.orhanobut.logger.Logger;
@@ -24,12 +26,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnItemClick;
 import butterknife.Unbinder;
-import io.realm.Realm;
 
 import static com.kai.wisdom_scut.db.RealmDb.getMsgsByName;
-import static com.kai.wisdom_scut.db.RealmDb.realm;
 import static com.kai.wisdom_scut.db.RealmDb.saveMsgs;
 
 /**
@@ -41,6 +42,8 @@ public class MessageFragment extends Fragment {
     ListView msg_listview;
     @BindView(R.id.search)
     LinearLayout search;
+    @BindView(R.id.yuyin)
+    ImageView yuyin;
     private Unbinder unbinder;
     private List<ServiceMsg> msgList = new ArrayList<>();
     private MsgListAdapter msgListAdapter;
@@ -54,12 +57,14 @@ public class MessageFragment extends Fragment {
         initView();
         return view;
     }
+
     private void initData() {
         saveMsgs(Constants.serviceMsgData); //模拟网络
     }
+
     private void initView() {
         msg_listview.setEmptyView(search);
-        msg_listview.addHeaderView(LayoutInflater.from(getContext()).inflate(R.layout.search_head_layout,null,false));
+        msg_listview.addHeaderView(LayoutInflater.from(getContext()).inflate(R.layout.search_head_layout, null, false));
         msgListAdapter = new MsgListAdapter(getContext(), msgList);
         msg_listview.setAdapter(msgListAdapter);
     }
@@ -87,11 +92,15 @@ public class MessageFragment extends Fragment {
             Intent intent = new Intent(getActivity(), MessageActivity.class);
             intent.putExtra("serviceName", serviceName);
             ActivityUtils.parseToActivity(getActivity(), intent);
-        }else {
+        } else {
             Intent intent = new Intent(getActivity(), SearchAvtivity.class);
             ActivityUtils.parseToActivity(getActivity(), intent);
             Logger.e("search");
         }
     }
 
+    @OnClick(R.id.yuyin)
+    public void onClick() {
+        ActivityUtils.parseToActivity(getActivity(),new Intent(getActivity(), BaiduYuyinActivity.class));
+    }
 }

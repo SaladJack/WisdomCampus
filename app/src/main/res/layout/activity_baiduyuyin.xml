@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/yuyin_send_content"
+        android:layout_margin="10dp"
+        android:layout_gravity="right"
+        android:textSize="20sp"
+        android:maxWidth="200dp"
+        android:visibility="gone"
+        android:textColor="#bfbfbf"
+        style="@style/normal_text_style" />
+    <TextView
+        android:id="@+id/yuyin_receive_content"
+        android:layout_margin="10dp"
+        android:layout_gravity="left"
+        android:maxWidth="200dp"
+        android:textSize="20sp"
+        android:textColor="#bfbfbf"
+        android:visibility="gone"
+        style="@style/normal_text_style" />
+
+
+
+    <TextView
+        android:id="@+id/guide_title"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:text="你可以这样说"
+        android:textSize="22sp"
+        android:textColor="#383737"
+        style="@style/normal_text_style"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/guide_ll"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/normal_text_style"
+                android:layout_gravity="center_horizontal"
+                android:text="成绩查询"
+                android:textSize="20sp"
+                />
+            <TextView
+                style="@style/normal_text_style"
+                android:layout_gravity="center_horizontal"
+                android:text="专业信息"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                style="@style/normal_text_style"
+                android:layout_gravity="center_horizontal"
+                android:text="教学计划"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                style="@style/normal_text_style"
+                android:layout_gravity="center_horizontal"
+                android:text="专业信息"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                style="@style/normal_text_style"
+                android:layout_gravity="center_horizontal"
+                android:text="成绩查询"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/guide"
+        android:text="长按说话"
+        android:textSize="12sp"
+        android:textColor="@color/main_blue"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        style="@style/normal_text_style" />
+
+    <ImageView
+        android:id="@+id/say"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/mic"
+        android:background="@drawable/mic_bg"/>
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+        <ImageView
+            android:layout_marginLeft="40dp"
+            android:id="@+id/close"
+            android:src="@drawable/close"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+
+        <TextView
+            android:id="@+id/problem"
+            android:gravity="center"
+            android:textSize="30dp"
+            android:text="\?"
+            android:textColor="#aaaaaa"
+            style="@style/normal_text_style"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="40dp" />
+    </RelativeLayout>
+</LinearLayout>

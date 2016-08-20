@@ -37,7 +37,7 @@ public class CollectionAdapter extends ArrayAdapter{
         this.collections = collections;
     }
 
-    @NonNull
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
          collection = (Collection) getItem(position);

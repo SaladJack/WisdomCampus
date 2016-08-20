@@ -13,6 +13,15 @@
             android:text="消息"
             style="@style/toolbar_title_style"
             />
+
+        <ImageView
+            android:id="@+id/yuyin"
+            android:src="@drawable/mic"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
     </RelativeLayout>
 <LinearLayout
     android:orientation="vertical"
