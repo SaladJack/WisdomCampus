@@ -246,7 +246,7 @@ public class RealmDb {
                 ServicePos subService = new ServicePos();
                 subService.setServiceName(subServiceNames[i]);
                 subService.setPosition(i);
-                subService.setImgResId(Constants.Service.map.get(subServiceNames[i]));
+                subService.setImgResId(Constants.Service.mapImg.get(subServiceNames[i]));
                 realm.copyToRealm(subService);
             }
             realm.commitTransaction();

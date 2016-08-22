@@ -10,6 +10,7 @@ import com.dd.CircularProgressButton;
 import com.kai.wisdom_scut.R;
 import com.kai.wisdom_scut.db.Constants;
 import com.kai.wisdom_scut.db.RealmDb;
+import com.kai.wisdom_scut.model.MachineMsg;
 import com.kai.wisdom_scut.utils.ActivityUtils;
 import com.orhanobut.logger.Logger;
 
@@ -22,6 +23,9 @@ import io.realm.Realm;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.schedulers.Schedulers;
+
+import static com.kai.wisdom_scut.db.RealmDb.realm;
 
 /**
  * Created by tusm on 16/8/15.
@@ -55,13 +59,29 @@ public class LoginActivity extends Activity {
         login.setProgress(50);
         RealmDb.saveUser(Constants.UserTestData,"123456");
         Observable.timer(1, TimeUnit.SECONDS)
+                .map(aLong -> {loadMachineFile();return 1;})
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aLong -> login.setProgress(0));
-        Observable.timer(1500, TimeUnit.MILLISECONDS)
-                .subscribe(aLong -> {
-                    ActivityUtils.parseToActivity(this,new Intent(this,HomeActivity.class));
-                    finish();
+                .subscribe( i -> {
+                    login.setProgress(0);
+                    Observable.timer(1,TimeUnit.SECONDS)
+                            .subscribe(aLong -> {
+                                ActivityUtils.parseToActivity(this,new Intent(this,HomeActivity.class));
+                                finish();
+                            });
                 });
 
     }
+
+
+    private void loadMachineFile() {
+        Realm realm = Realm.getDefaultInstance();
+        if(realm.where(MachineMsg.class).findFirst() == null) {
+            Observable.just("machine.txt")
+                    .observeOn(Schedulers.io())
+                    .subscribe(filename -> RealmDb.saveMachineMsg(this, filename));
+        }
+        realm.close();
+    }
+
 }

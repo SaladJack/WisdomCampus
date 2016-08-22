@@ -2,43 +2,134 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-<RelativeLayout
-    style="@style/toolbar_style">
-    <LinearLayout
-        android:id="@+id/back"
-        android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:src="@drawable/back"
-            android:scaleType="fitXY"
-            style="@style/back_img"/>
+    <RelativeLayout
+        style="@style/toolbar_style">
+        <LinearLayout
+            android:id="@+id/back"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/back"
+                android:scaleType="fitXY"
+                style="@style/back_img"/>
+            <TextView
+                android:layout_gravity="center_vertical|left"
+                style="@style/normal_text_style"
+                android:text="消息"
+                android:textColor="@color/white"/>
+        </LinearLayout>
         <TextView
-            android:layout_gravity="center_vertical|left"
-            style="@style/normal_text_style"
-            android:text="消息"
-            android:textColor="@color/white"/>
-    </LinearLayout>
-    <TextView
-        android:id="@+id/message_title"
-        style="@style/toolbar_title_style"
-        />
-</RelativeLayout>
-
-    <ListView
-        android:id="@+id/msgListview"
-        android:divider="@null"
-        android:stackFromBottom="false"
-        android:transcriptMode="alwaysScroll"
+            android:id="@+id/message_title"
+            style="@style/toolbar_title_style"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/webContent_ll"
+        android:orientation="vertical"
+        android:visibility="gone"
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:id="@+id/myProgressBar"
+            android:layout_gravity="top"
+            android:layout_width="match_parent"
+            android:layout_height="5px"
+            />
+        <WebView
+            android:id="@+id/webContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+    <RelativeLayout
         android:layout_height="0dp"
-        android:layout_weight="40"/>
+        android:layout_weight="40"
+        android:layout_width="match_parent">
+
+        <ListView
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:id="@+id/msgListview"
+            android:divider="@null"
+            android:stackFromBottom="false"
+            android:transcriptMode="alwaysScroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            />
+
+        <LinearLayout
+            android:id="@+id/sub_menu_ll"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="50dp"
+                android:layout_marginLeft="5dp"
+                android:layout_height="match_parent"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
+                <View
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_width="0dp">
+
+                    <TextView
+                        android:text="菜单五"
+                        android:id="@+id/menu4"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:background="@drawable/left_top_border_sub_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp" />
+
+                    <TextView
+                        android:text="菜单四"
+                        android:id="@+id/menu3"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:background="@drawable/left_top_border_sub_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp" />
+
+                    <TextView
+                        android:text="菜单三"
+                        android:id="@+id/menu2"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:background="@drawable/left_top_border_sub_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
 
     <LinearLayout
         android:id="@+id/chat_ll"
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
-        android:paddingRight="5dp"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -67,7 +158,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.98"
-             />
+            />
 
         <Button
             android:id="@+id/send_Btn"
@@ -87,47 +178,48 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:paddingLeft="5dp"
-        android:paddingRight="5dp"
         android:background="@drawable/keyboard_bg"
         android:layout_weight="1">
+
         <Button
             android:layout_gravity="center_vertical"
             android:layout_width="50dp"
             android:layout_height="35dp"
             android:background="@drawable/show_keyboard"
             android:id="@+id/show_keyboard" />
+
         <LinearLayout
             android:visibility="visible"
             android:layout_gravity="bottom"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/menu1"
-            android:text="菜单一"
-            android:gravity="center"
-            android:padding="10dp"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/left_border"
-            />
             <TextView
-                android:id="@+id/menu2"
-                android:text="菜单二"
+                android:id="@+id/menu0"
+                android:text="菜单一"
                 android:gravity="center"
                 android:padding="10dp"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/left_border"
                 />
             <TextView
-                android:id="@+id/menu3"
-                android:text="菜单三"
+                android:id="@+id/menu1"
+                android:text="菜单二"
                 android:gravity="center"
                 android:padding="10dp"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/left_border"
+                />
+            <TextView
+                android:id="@+id/more_service"
+                android:text="更多服务"
+                android:gravity="center"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/left_border"
                 />

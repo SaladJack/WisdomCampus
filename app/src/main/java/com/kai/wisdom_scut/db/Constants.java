@@ -2,9 +2,7 @@ package com.kai.wisdom_scut.db;
 
 import com.kai.wisdom_scut.R;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 
 import io.realm.RealmConfiguration;
 
@@ -27,7 +25,9 @@ public class Constants {
                         "教学分析","更多"
                 };
         public static String[] allServiceNames;
-        public static HashMap<String,Integer> map = new HashMap<>();
+        public static HashMap<String,Integer> mapImg = new HashMap<>();
+        public static HashMap<String,String[]> mapServices = new HashMap<>();
+        public static HashMap<String,String> mapServiceUrl = new HashMap<>();
         static{
             allServiceNames = new String[mainServiceNames.length + subServiceNames.length];
             for (int i = 0; i < allServiceNames.length; ++i){
@@ -36,41 +36,60 @@ public class Constants {
                 else
                     allServiceNames[i] = subServiceNames[i - mainServiceNames.length];
             }
-
-
             //main
-            map.put("一键上网",R.mipmap.yjsw);
-            map.put("拾卡寻人",R.mipmap.skxr);
-            map.put("就业招聘",R.mipmap.jyzp);
-            map.put("学生活动",R.mipmap.xshd);
+            mapImg.put("一键上网",R.mipmap.yjsw);
+            mapImg.put("拾卡寻人",R.mipmap.skxr);
+            mapImg.put("就业招聘",R.mipmap.jyzp);
+            mapImg.put("学生活动",R.mipmap.xshd);
             //sub
-            map.put("专业信息",R.mipmap.zyxx);
-            map.put("教学计划",R.mipmap.jxjh);
-            map.put("学术课程表",R.mipmap.xskcb);
-            map.put("成绩查询",R.mipmap.cjcx);
-            map.put("奖学金",R.mipmap.jxj);
-            map.put("助学金",R.mipmap.zxj);
-            map.put("助学贷款",R.mipmap.zxdk);
-            map.put("财务数据",R.mipmap.cwsj);
-            map.put("信息网络",R.mipmap.xxwl);
-            map.put("校园资讯",R.mipmap.xyzx);
-            map.put("网路故障",R.mipmap.wlgz);
-            map.put("新闻门户",R.mipmap.xwmh);
-            map.put("人事服务",R.mipmap.rsfw);
-            map.put("教师课程表",R.mipmap.jskcb);
-            map.put("科研信息",R.mipmap.kyxx);
-            map.put("签到",R.mipmap.qd);
-            map.put("帮助咨询",R.mipmap.bzzx);
-            map.put("重要通知",R.mipmap.zytz);
-            map.put("宿管",R.mipmap.sg);
-            map.put("资产处",R.mipmap.zcc);
-            map.put("成绩分析",R.mipmap.cjfx);
-            map.put("消费分析",R.mipmap.xffx);
-            map.put("签到分析",R.mipmap.qdfx);
-            map.put("辅修分析",R.mipmap.fxfx);
-            map.put("教学分析",R.mipmap.jxfx);
-            map.put("更多",R.drawable.more);
+            mapImg.put("专业信息",R.mipmap.zyxx);
+            mapImg.put("教学计划",R.mipmap.jxjh);
+            mapImg.put("学术课程表",R.mipmap.xskcb);
+            mapImg.put("成绩查询",R.mipmap.cjcx);
+            mapImg.put("奖学金",R.mipmap.jxj);
+            mapImg.put("助学金",R.mipmap.zxj);
+            mapImg.put("助学贷款",R.mipmap.zxdk);
+            mapImg.put("财务数据",R.mipmap.cwsj);
+            mapImg.put("信息网络",R.mipmap.xxwl);
+            mapImg.put("校园资讯",R.mipmap.xyzx);
+            mapImg.put("网路故障",R.mipmap.wlgz);
+            mapImg.put("新闻门户",R.mipmap.xwmh);
+            mapImg.put("人事服务",R.mipmap.rsfw);
+            mapImg.put("教师课程表",R.mipmap.jskcb);
+            mapImg.put("科研信息",R.mipmap.kyxx);
+            mapImg.put("签到",R.mipmap.qd);
+            mapImg.put("帮助咨询",R.mipmap.bzzx);
+            mapImg.put("重要通知",R.mipmap.zytz);
+            mapImg.put("宿管",R.mipmap.sg);
+            mapImg.put("资产处",R.mipmap.zcc);
+            mapImg.put("成绩分析",R.mipmap.cjfx);
+            mapImg.put("消费分析",R.mipmap.xffx);
+            mapImg.put("签到分析",R.mipmap.qdfx);
+            mapImg.put("辅修分析",R.mipmap.fxfx);
+            mapImg.put("教学分析",R.mipmap.jxfx);
+            mapImg.put("更多",R.drawable.more);
+
+            mapServices.put("校园资讯",new String[]{"学校要闻","校园快讯","媒体华园","学院风采","校园动态"});
+            mapServices.put("新闻门户",new String[]{"党委发文","行政发文"});
+            mapServices.put("重要通知",new String[]{"公务通知","事务通知","学术通知"});
+
+
+            mapServiceUrl.put("学校要闻","http://imuserver.mapp.scut.edu.cn:8080/scut-news/resources/scutnewslst.jsp?type=0");
+            mapServiceUrl.put("校园快讯","http://imuserver.mapp.scut.edu.cn:8080/scut-news/resources/scutnewslst.jsp?type=1");
+            mapServiceUrl.put("媒体华园","http://imuserver.mapp.scut.edu.cn:8080/scut-news/resources/scutnewslst.jsp?type=2");
+            mapServiceUrl.put("学院风采","http://imuserver.mapp.scut.edu.cn:8080/scut-news/resources/scutnewslst.jsp?type=3");
+            mapServiceUrl.put("校园动态","http://imuserver.mapp.scut.edu.cn:8080/scut-news/resources/scutnewslst.jsp?type=4");
+
+            mapServiceUrl.put("党委发文","http://imuserver.mapp.scut.edu.cn:8080/scut-news/resources/scutOAnewslst.jsp?type=党委发文&url=http://oa.scut.edu.cn/rssoa/fileReleasePubRssToJson.do?releaseType=2217");
+            mapServiceUrl.put("行政发文","http://imuserver.mapp.scut.edu.cn:8080/scut-news/resources/scutOAnewslst.jsp?type=行政发文&url=http://oa.scut.edu.cn/rssoa/fileReleasePubRssToJson.do?releaseType=2218");
+
+            mapServiceUrl.put("公务通知","http://imuserver.mapp.scut.edu.cn:8080/scut-news/resources/scutOAnewslst.jsp?type=公务通知&url=http://oa.scut.edu.cn/rssoa/listAnnouncementToJson.do?type=gwtz");
+            mapServiceUrl.put("事务通知","http://imuserver.mapp.scut.edu.cn:8080/scut-news/resources/scutOAnewslst.jsp?type=事务通知&url=http://oa.scut.edu.cn/rssoa/listAnnouncementToJson.do?type=swtz");
+            mapServiceUrl.put("学术通知","http://imuserver.mapp.scut.edu.cn:8080/scut-news/resources/scutOAnewslst.jsp?type=学术通知&url=http://oa.scut.edu.cn/rssoa/listAnnouncementToJson.do?type=xxtz");
+
         }
+
+
     }
 
 

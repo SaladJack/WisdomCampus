@@ -1,5 +1,6 @@
 package com.kai.wisdom_scut.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,9 +13,12 @@ import android.widget.LinearLayout;
 
 import com.kai.wisdom_scut.R;
 import com.kai.wisdom_scut.controller.adapter.DragAdapter;
+import com.kai.wisdom_scut.controller.adapter.MsgChatAdapter;
 import com.kai.wisdom_scut.controller.drag.DragItemCallBack;
 import com.kai.wisdom_scut.controller.drag.RecycleCallBack;
 import com.kai.wisdom_scut.model.ServicePos;
+import com.kai.wisdom_scut.utils.ActivityUtils;
+import com.kai.wisdom_scut.view.activity.MessageActivity;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -91,8 +95,11 @@ public class ServiceFragment extends Fragment implements RecycleCallBack {
             mAdapter.notifyItemRemoved(position);
 
         } else {
-            Logger.d(servicePoseList.get(position).getServiceName() + "位置:   "+ position);
             mAdapter.notifyDataSetChanged();
+            Intent intent = new Intent(getActivity(), MessageActivity.class);
+            intent.putExtra("serviceName",servicePoseList.get(position).getServiceName());
+            ActivityUtils.parseToActivity(getActivity(),intent);
+
         }
     }
 

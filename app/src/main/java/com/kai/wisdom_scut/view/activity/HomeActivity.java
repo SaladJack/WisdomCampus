@@ -95,7 +95,7 @@ public class HomeActivity extends FragmentActivity {
         fragList.add(new MessageFragment());
         fragList.add(new ServiceFragment());
         fragList.add(new PersonFragment());
-        loadMachineFile();
+
 
     }
 
@@ -116,13 +116,6 @@ public class HomeActivity extends FragmentActivity {
         fragmentViewPager.setOnPageChangeListener(vpSlide);
     }
 
-    private void loadMachineFile() {
-        if(realm.where(MachineMsg.class).findFirst() == null) {
-            Observable.just("machine.txt")
-                    .observeOn(Schedulers.io())
-                    .subscribe(filename -> RealmDb.saveMachineMsg(this, filename));
-        }
-    }
 
 
     @OnClick({R.id.message_ll, R.id.service_ll, R.id.person_ll})

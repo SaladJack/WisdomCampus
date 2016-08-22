@@ -58,7 +58,7 @@ public class ServiceMsg extends RealmObject implements Comparable<ServiceMsg>{
     }
 
     public int getImageResId() {
-        return Constants.Service.map.get(getServiceName());
+        return Constants.Service.mapImg.get(getServiceName());
     }
 
     public void setImageResId(int imageResId) {

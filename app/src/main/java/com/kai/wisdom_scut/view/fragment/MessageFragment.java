@@ -29,6 +29,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import butterknife.Unbinder;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static com.kai.wisdom_scut.db.RealmDb.getMsgsByName;
 import static com.kai.wisdom_scut.db.RealmDb.saveMsgs;
@@ -50,7 +53,6 @@ public class MessageFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Logger.e("onCreateView");
         View view = inflater.inflate(R.layout.fragment_message, container, false);
         unbinder = ButterKnife.bind(this, view);
         initData();
@@ -71,10 +73,12 @@ public class MessageFragment extends Fragment {
 
     @Override
     public void onStart() {
+
+
         msgList.clear();
         msgList.addAll(getMsgsByName());
-        Logger.e(msgList.toString());
         msgListAdapter.notifyDataSetChanged();
+
         super.onStart();
     }
 

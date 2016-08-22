@@ -30,7 +30,7 @@ public class MoreServicePos extends RealmObject {
     }
 
     public int getImgResId() {
-        return Constants.Service.map.get(getServiceName());
+        return Constants.Service.mapImg.get(getServiceName());
     }
 
     public void setImgResId(int imgResId) {
